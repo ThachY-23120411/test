@@ -17,7 +17,10 @@
 				}
 				ll dp[n+1][k+1];
 				memset(dp, 0, sizeof(dp));
-
+				for (ll i = 1; i <= min(n-1, k); i++)
+                {
+                    dp[i][i] = 1e18;
+                }
 				//.dp[i][j]: xet ts vi tri i , va j la so lan thuc hien op , va dp[i][j] la tong min khi xet ts phan tu thu i va so lan thuc hien op la j
 				for (ll i = 1; i <= n; i++) {
 					for (ll j = 0; j <= min(i-1,k); j++) {
@@ -27,20 +30,13 @@
 						// -->Khi thuc hien q op len phan tu nho nhat do (gia su la i=v) thi no se chuyen toan bo a[?] voi ? thuoc [i-q,i] thanh a[v] toan bo
 						//--> Vi thuc hien q op len a[v]--> a[?]=a[v] voi ? thuoc [i-q,i] --> tong toi uu tinh ts vi tri i khi nay chinh la = < tong toi uu tinh ts vi tri ((i-q-1) -1)> + q*a[v];
 						//.Xet ts vi tri i --> so op toi da co the th/hien len i la i-1 op.
-                        if(i>1&&j>0){
-						ll val = a[i];
+                        ll val = a[i];
 						for (ll o = 1; o <= j; o++) {
 							val = min(val, a[i-o]);
 							dp[i][j] = min(dp[i][j], dp[i - o - 1][j - o] + (o+1) * val);
 						}
-                        }
 					}
 				}
-				if(n==1){
 				cout<<dp[n][min(k,n-1)]<<endl;
-			}
-			else{
-                cout<<dp[n][min(k,n-1)]+1<<endl;
-			}
 		}
 		}
